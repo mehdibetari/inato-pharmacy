@@ -44,12 +44,12 @@ const defaultUpdates = ({ expiresIn, benefit, name }) => {
   let newBenefit:number = benefit;
   if (isHigherMinBenefit(benefit)) {
     isExpired(expiresIn)
-      ? (newBenefit = isLowerMaxBenefit(benefit)
+      ? (newBenefit = benefit >= 2
           ? benefit - 2
-          : benefit)
-      : (newBenefit = isLowerMaxBenefit(benefit)
+          : 0)
+      : (newBenefit = benefit >= 1
           ? benefit - 1
-          : benefit)
+          : 0)
   }
   const newExpiresIn:number = expiresIn - 1;
   return { benefit: newBenefit, expiresIn: newExpiresIn, name };
