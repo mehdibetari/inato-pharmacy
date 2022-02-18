@@ -17,6 +17,20 @@ describe("Pharmacy", () => {
       expect(
         updateBenefitValue([{ name: "test", expiresIn: 0, benefit: 0 }])
       ).toEqual([{ name: "test", expiresIn: -1, benefit: 0 }]);
+      expect(
+        updateBenefitValue([{ name: "Dafalgan", expiresIn: 0, benefit: 0 }])
+      ).toEqual([{ name: "Dafalgan", expiresIn: -1, benefit: 0 }]);
+      expect(
+        updateBenefitValue([{ name: "Fervex", expiresIn: 0, benefit: 0 }])
+      ).toEqual([{ name: "Fervex", expiresIn: -1, benefit: 0 }]);
+    });
+    it("should never decrease benefit under zero with decrease by 2 or more", () => {
+    expect(
+      updateBenefitValue([{ name: "test", expiresIn: 1, benefit: 1 }])
+    ).toEqual([{ name: "test", expiresIn: 0, benefit: 0 }]);
+    expect(
+      updateBenefitValue([{ name: "Dafalgan", expiresIn: 1, benefit: 1 }])
+    ).toEqual([{ name: "Dafalgan", expiresIn: 0, benefit: 0 }]);
     });
     it("should never increase benefit over fifty", () => {
       expect(
@@ -79,6 +93,18 @@ describe("Pharmacy", () => {
         expect(
           updateBenefitValue([{ name: "Fervex", expiresIn: 0, benefit: 40 }])
         ).toEqual([{ name: "Fervex", expiresIn: -1, benefit: 0 }]);
+      });
+    });
+    describe("Dafalgan", () => {
+      it("should decrease by 2 the benefit before expire", () => {
+        expect(
+          updateBenefitValue([{ name: "Dafalgan", expiresIn: 2, benefit: 3 }])
+        ).toEqual([{ name: "Dafalgan", expiresIn: 1, benefit: 1 }]);
+      });
+      it("should decrease by 4 the benefit after expire", () => {
+        expect(
+          updateBenefitValue([{ name: "Dafalgan", expiresIn: 0, benefit: 5 }])
+        ).toEqual([{ name: "Dafalgan", expiresIn: -1, benefit: 1 }]);
       });
     });
   });
