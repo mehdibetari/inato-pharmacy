@@ -1,4 +1,6 @@
-export const updateBenefitValue = (drugs) => {
+import { DrugProps } from './types';
+
+export const updateBenefitValue = (drugs: Array<DrugProps>) => {
   //todo : dont rewrite input
   //todo : refactor to functionnal approch
   //todo : add typing

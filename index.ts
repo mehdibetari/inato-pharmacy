@@ -1,9 +1,8 @@
+import { writeFile } from "fs";
+import { DrugProps } from './types';
 import { updateBenefitValue } from "./pharmacy";
 
-import { writeFile } from "fs";
-
-//todo : use typing
-const drugs = [
+const drugs: Array<DrugProps> = [
   {
     name: "Doliprane",
     expiresIn: 20,
@@ -26,7 +25,7 @@ const drugs = [
   },
 ];
 
-const logs:Array<string> = [];
+const logs: Array<string> = [];
 
 // todo move to functionnal loop
 for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
@@ -34,7 +33,7 @@ for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
 }
 const output = logs.toString();
 /* eslint-disable no-console */
-writeFile("output.txt", output, err => {
+writeFile("output.txt", output, (err) => {
   if (err) {
     console.log("error");
   } else {

@@ -1,14 +1,6 @@
 import { updateBenefitValue } from "./pharmacy";
 
 describe("Pharmacy", () => {
-  describe("Drugs Prerequisite", () => {
-    it("should have an `expiresIn`and `benefit` values", () => {
-      // todo Error case : add validation of drug attributes
-      expect(updateBenefitValue([{ name: "test" }])).toEqual([
-        { name: "test", expiresIn: NaN, benefit: undefined },
-      ]);
-    });
-  });
   describe("Initial behavior", () => {
     it("should decrease the benefit and expiresIn", () => {
       expect(
