@@ -1,63 +1,76 @@
-import { DrugProps } from './types';
+import { DrugProps } from "./types";
+
+const MAX_BENEFIT = 50;
+const MIN_BENEFIT = 0;
+const HERBAL = "Herbal Tea";
+const MAGIC = "Magic Pill";
+const FERVEX = "Fervex";
+
+const isExpired = (expiresIn: number) => expiresIn < 1;
+
+const isLowerMaxBenefit = (benefit: number) => benefit < MAX_BENEFIT;
+
+const isHigherMinBenefit = (benefit: number) => benefit > MIN_BENEFIT;
+
+const herbalUpdates = ({ expiresIn, benefit, name }) => {
+  let newBenefit:number = benefit;
+  isExpired(expiresIn)
+    ? (newBenefit = isLowerMaxBenefit(benefit) ? benefit + 2 : benefit)
+    : (newBenefit = isLowerMaxBenefit(benefit) ? benefit + 1 : benefit);
+  const newExpiresIn:number = expiresIn - 1;
+  return { benefit: newBenefit, expiresIn: newExpiresIn, name };
+};
+
+const fervexUpdates = ({ expiresIn, benefit, name }) => {
+  let newBenefit:number = benefit;
+  if (isLowerMaxBenefit(benefit)) {
+    newBenefit = benefit + 1;
+    if (expiresIn < 11) {
+      newBenefit = newBenefit + 1;
+    }
+    if (expiresIn < 6) {
+      newBenefit = newBenefit + 1;
+    }
+  }
+  if (isExpired(expiresIn)) {
+    newBenefit = 0;
+  }
+  const newExpiresIn:number = expiresIn - 1;
+  return { benefit: newBenefit, expiresIn: newExpiresIn, name };
+};
+
+const defaultUpdates = ({ expiresIn, benefit, name }) => {
+  let newBenefit:number = benefit;
+  if (isHigherMinBenefit(benefit)) {
+    isExpired(expiresIn)
+      ? (newBenefit = isLowerMaxBenefit(benefit)
+          ? benefit - 2
+          : benefit)
+      : (newBenefit = isLowerMaxBenefit(benefit)
+          ? benefit - 1
+          : benefit)
+  }
+  const newExpiresIn:number = expiresIn - 1;
+  return { benefit: newBenefit, expiresIn: newExpiresIn, name };
+};
 
 export const updateBenefitValue = (drugs: Array<DrugProps>) => {
   //todo : dont rewrite input
-  //todo : refactor to functionnal approch
-  //todo : add typing
-  const MAX_BENEFIT = 50;
-  const MIN_BENEFIT = 0;
-  const HERBAL = "Herbal Tea";
-  const MAGIC = "Magic Pill";
-  const FERVEX = "Fervex";
-
+  // todo move to functionnal loop
   for (var i = 0; i < drugs.length; i++) {
-    const isNotDecreasableDrug = drugs[i].name != HERBAL && drugs[i].name != FERVEX;
-    const isHigherMinBenefit = drugs[i].benefit > MIN_BENEFIT;
-    const isLowerMaxBenefit = drugs[i].benefit < MAX_BENEFIT;
-    if (isNotDecreasableDrug) {
-      if (isHigherMinBenefit) {
-        if (drugs[i].name != MAGIC) {
-          drugs[i].benefit = drugs[i].benefit - 1;
-        }
-      }
-    } else {
-      if (isLowerMaxBenefit) {
-        drugs[i].benefit = drugs[i].benefit + 1;
-        if (drugs[i].name == FERVEX) {
-          if (drugs[i].expiresIn < 11) {
-            if (isLowerMaxBenefit) {
-              drugs[i].benefit = drugs[i].benefit + 1;
-            }
-          }
-          if (drugs[i].expiresIn < 6) {
-            if (isLowerMaxBenefit) {
-              drugs[i].benefit = drugs[i].benefit + 1;
-            }
-          }
-        }
-      }
-    }
-    if (drugs[i].name != MAGIC) {
-      drugs[i].expiresIn = drugs[i].expiresIn - 1;
-    }
-    if (drugs[i].expiresIn < 0) {
-      if (drugs[i].name != HERBAL) {
-        if (drugs[i].name != FERVEX) {
-          if (isHigherMinBenefit) {
-            if (drugs[i].name != MAGIC) {
-              drugs[i].benefit = drugs[i].benefit - 1;
-            }
-          }
-        } else {
-          drugs[i].benefit = drugs[i].benefit - drugs[i].benefit;
-        }
-      } else {
-        if (isLowerMaxBenefit) {
-          drugs[i].benefit = drugs[i].benefit + 1;
-        }
-      }
+    switch (drugs[i].name) {
+      case HERBAL:
+        drugs[i] = herbalUpdates(drugs[i]);
+        break;
+      case FERVEX:
+        drugs[i] = fervexUpdates(drugs[i]);
+        break;
+      case MAGIC:
+        break;
+      default:
+        drugs[i] = defaultUpdates(drugs[i]);
+        break;
     }
   }
-
   return drugs;
-}
+};
