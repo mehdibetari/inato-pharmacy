@@ -1,6 +1,6 @@
 import { updateBenefitValue } from "./pharmacy";
 
-import fs from "fs";
+import { writeFile } from "fs";
 
 //todo : use typing
 const drugs = [
@@ -26,15 +26,15 @@ const drugs = [
   },
 ];
 
-const log = [];
+const logs:Array<string> = [];
 
 // todo move to functionnal loop
 for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
-  log.push(JSON.stringify(updateBenefitValue(drugs)));
+  logs.push(JSON.stringify(updateBenefitValue(drugs)));
 }
-
+const output = logs.toString();
 /* eslint-disable no-console */
-fs.writeFile("output.txt", log, err => {
+writeFile("output.txt", output, err => {
   if (err) {
     console.log("error");
   } else {
