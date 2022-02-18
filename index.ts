@@ -23,6 +23,11 @@ const drugs: Array<DrugProps> = [
     expiresIn: 15,
     benefit: 40,
   },
+  {
+    name: "Dafalgan",
+    expiresIn: 15,
+    benefit: 40,
+  },
 ];
 
 const logs: Array<string> = [];

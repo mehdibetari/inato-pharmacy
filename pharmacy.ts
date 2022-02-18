@@ -5,6 +5,7 @@ const MIN_BENEFIT = 0;
 const HERBAL = "Herbal Tea";
 const MAGIC = "Magic Pill";
 const FERVEX = "Fervex";
+const DAFALGAN = "Dafalgan";
 
 const isExpired = (expiresIn: number) => expiresIn < 1;
 
@@ -54,6 +55,21 @@ const defaultUpdates = ({ expiresIn, benefit, name }) => {
   return { benefit: newBenefit, expiresIn: newExpiresIn, name };
 };
 
+const dafalganUpdates = ({ expiresIn, benefit, name }) => {
+  let newBenefit:number = benefit;
+  if (isHigherMinBenefit(benefit)) {
+    isExpired(expiresIn)
+      ? (newBenefit = benefit >= 4
+          ? benefit - 4
+          : 0)
+      : (newBenefit = benefit >= 2
+          ? benefit - 2
+          : 0)
+  }
+  const newExpiresIn:number = expiresIn - 1;
+  return { benefit: newBenefit, expiresIn: newExpiresIn, name };
+};
+
 export const updateBenefitValue = (drugs: Array<DrugProps>) => {
   //todo : dont rewrite input
   // todo move to functionnal loop
@@ -64,6 +80,9 @@ export const updateBenefitValue = (drugs: Array<DrugProps>) => {
         break;
       case FERVEX:
         drugs[i] = fervexUpdates(drugs[i]);
+        break;
+      case DAFALGAN:
+        drugs[i] = dafalganUpdates(drugs[i]);
         break;
       case MAGIC:
         break;
