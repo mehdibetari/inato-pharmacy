@@ -8,6 +8,7 @@ export default ({ expiresIn, benefit, name }) => {
     if (expiresIn < 11) {
       newBenefit = newBenefit + 1;
     }
+
     if (expiresIn < 6) {
       newBenefit = newBenefit + 1;
     }

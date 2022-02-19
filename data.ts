@@ -5,4 +5,5 @@ export const drugs: Array<Drug> = [
 	new Drug("Herbal Tea", 10, 5),
 	new Drug("Fervex", 5, 40),
 	new Drug("Magic Pill", 15, 40),
+	new Drug("Dafalgan", 15, 40),
 ];
