@@ -1,5 +1,5 @@
 import { writeFile } from "fs";
-import { updateBenefitValue } from "./pharmacy";
+import { updateBenefitValue } from "./src/pharmacy";
 import { drugs } from "./data";
 
 const logs: Array<string> = [];

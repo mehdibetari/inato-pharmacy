@@ -1,17 +1,10 @@
-import { Drug } from "./src/types";
+import { Drug } from "./types";
+import { isExpired, isLowerMaxBenefit, isHigherMinBenefit } from "./helpers";
 
-const MAX_BENEFIT = 50;
-const MIN_BENEFIT = 0;
 const HERBAL = "Herbal Tea";
 const MAGIC = "Magic Pill";
 const FERVEX = "Fervex";
 const DAFALGAN = "Dafalgan";
-
-const isExpired = (expiresIn: number) => expiresIn < 1;
-
-const isLowerMaxBenefit = (benefit: number) => benefit < MAX_BENEFIT;
-
-const isHigherMinBenefit = (benefit: number) => benefit > MIN_BENEFIT;
 
 const herbalUpdates = ({ expiresIn, benefit, name }) => {
   let newBenefit:number = benefit;
