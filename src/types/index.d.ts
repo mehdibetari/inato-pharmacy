@@ -1,7 +1,7 @@
-export type UpdateBenefitFn = (drug: Drug) => Drug
+export type UpdateBenefitFn = (drug: DrugProps) => DrugProps;
 
-export type Drug = {
-  name: string;
-  expiresIn: number;
-  benefit: number;
-};
+export type DrugProps = {
+	name: string;
+	expiresIn: number;
+	benefit: number;
+}

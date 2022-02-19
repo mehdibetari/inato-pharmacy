@@ -1,29 +1,8 @@
-import { Drug } from "./src/types";
+import { Drug } from "./src/pharmacy";
 
 export const drugs: Array<Drug> = [
-	{
-		name: "Doliprane",
-		expiresIn: 20,
-		benefit: 30,
-	},
-	{
-		name: "Herbal Tea",
-		expiresIn: 10,
-		benefit: 5,
-	},
-	{
-		name: "Fervex",
-		expiresIn: 5,
-		benefit: 40,
-	},
-	{
-		name: "Magic Pill",
-		expiresIn: 15,
-		benefit: 40,
-	},
-	{
-		name: "Dafalgan",
-		expiresIn: 15,
-		benefit: 40,
-	},
+    new Drug("Doliprane", 20, 30),
+	new Drug("Herbal Tea", 10, 5),
+	new Drug("Fervex", 5, 40),
+	new Drug("Magic Pill", 15, 40),
 ];
