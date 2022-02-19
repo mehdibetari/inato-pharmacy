@@ -1,4 +1,4 @@
-import { DrugProps } from "./types";
+import { Drug } from "./src/types";
 
 const MAX_BENEFIT = 50;
 const MIN_BENEFIT = 0;
@@ -70,7 +70,7 @@ const dafalganUpdates = ({ expiresIn, benefit, name }) => {
   return { benefit: newBenefit, expiresIn: newExpiresIn, name };
 };
 
-export const updateBenefitValue = (drugs: Array<DrugProps>) => {
+export const updateBenefitValue = (drugs: Array<Drug>) => {
   //todo : dont rewrite input
   // todo move to functionnal loop
   for (var i = 0; i < drugs.length; i++) {
